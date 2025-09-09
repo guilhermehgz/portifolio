@@ -4,10 +4,12 @@ let defaultKnowledge = {
   
     "oi": "Oi! Que bom te ver por aqui 😄. Bem-vindo ao meu portfólio!",
     "olá": "Olá! Fico feliz com a sua visita 😊. Explore meu portfólio!",
+    "ola": "olá! que bom ter você por aqui! explore meu portifólio",
     "hello": "Hello! Welcome to my portfolio 😎. Feel free to look around!",
     "tchau": "Tchau! Foi ótimo conversar com você 👋. Volte sempre!",
     "adeus": "Adeus! Espero te ver de novo em breve 😉.",
     "até logo": "Até logo! Obrigado pela visita e volte sempre 😄.",
+    "ate logo": "Até logo! Obrigado pela visita e volte sempre 😄.",
     "como vai": "Estou ótimo, obrigado por perguntar! E você, como está?",
     "tudo bem": "Tudo ótimo por aqui! E você, como está se sentindo hoje?",
     "nome": "Meu nome é ChatBot Portfolio, prazer em te conhecer!",
@@ -63,7 +65,8 @@ let defaultKnowledge = {
     "tecnologia": "Tecnologia é fascinante! Adoro ver como ela muda o mundo 🌐.",
     "web": "Desenvolvimento web é minha especialidade 💻. Posso te mostrar meus projetos!",
     "offline": "Posso funcionar completamente offline no navegador, sem depender da internet 😉.",
-    "local": "Mesmo offline, posso conversar e aprender com você! 😎"
+    "aprender": "Mesmo offline, posso conversar e aprender com você! 😎"
+   
 };
 
 // ... continue com as demais 100+ respostas iniciais
@@ -149,3 +152,4 @@ document.getElementById('sendBtn').addEventListener('click', sendMessage);
 document.getElementById('input').addEventListener('keypress', function(e){
     if(e.key === 'Enter') sendMessage();
 });
+
