@@ -1,0 +1,334 @@
+/* -------- Reset básico -------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* -------- Header -------- */
+header {
+  background-color: #1e3a8a;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* -------- Formulário -------- */
+#formulario {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+fieldset {
+  border: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+legend {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  transition: all 0.3s ease-in-out;
+}
+
+input:focus, select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59,130,246,0.3);
+  outline: none;
+}
+
+/* -------- Grupo de Taxa -------- */
+.taxa-grupo {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.taxa-grupo input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  background-color: #f9fafb;
+}
+
+.taxa-grupo select {
+  flex: 0 0 130px;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 0 10px 10px 0;
+  background-color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Hover/focus para taxa-grupo */
+.taxa-grupo input:focus,
+.taxa-grupo select:focus,
+.taxa-grupo input:hover,
+.taxa-grupo select:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59,130,246,0.2);
+  outline: none;
+}
+
+/* -------- Botão -------- */
+form button {
+  grid-column: 1 / -1;
+  padding: 14px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+form button:hover {
+  background-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+
+/* -------- Gráfico -------- */
+#grafico {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* -------- Resultados Finais -------- */
+.resultados.finais {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.resultados.finais p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.resultados.finais span {
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+/* -------- Tabela -------- */
+#tabela-resultados {
+  max-width: 800px;
+  margin: 30px auto;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 10px;
+}
+
+#tabela-resultados table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+#tabela-resultados th, #tabela-resultados td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+#tabela-resultados th {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+}
+
+#tabela-resultados tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+#tabela-resultados tbody tr:hover {
+  background-color: #e0e7ff;
+}
+
+/* -------- Footer -------- */
+footer {
+  background-color: #1e3a8a;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 30px;
+}
+
+/* ----------------- ANÚNCIOS FIXOS ----------------- */
+.ads-column.left,
+.ads-column.right {
+  position: fixed;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.ads-column.left {
+  left: 0;
+  width: 250px;
+}
+
+.ads-column.right {
+  right: 0;
+  width: 250px;
+}
+
+/* Ajusta margem do conteúdo para não sobrepor anúncios */
+main {
+  margin: 0 270px; /* 250px de anúncio + 20px de folga */
+}
+
+/* Card de anúncio */
+.ad-250 {
+  width: 100%;
+  min-height: 150px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #1f2937;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.ad-250:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Rodapé horizontal */
+.ads-horizontal {
+  width: 100%;
+  max-width: 900px;
+  min-height: 125px;
+  margin: 30px auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #1f2937;
+  padding: 10px;
+}
+
+/* ----------------- RESPONSIVIDADE ----------------- */
+@media (max-width: 992px) {
+  /* Esconde colunas laterais */
+  .ads-column.left,
+  .ads-column.right {
+    display: none;
+  }
+
+  main {
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  /* Apenas o anúncio horizontal */
+  .ads-horizontal {
+    display: flex;
+    max-width: 100%;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  fieldset {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .taxa-grupo {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .taxa-grupo select {
+    flex: 1;
+    border-radius: 0 0 8px 8px;
+    border-top: none;
+  }
+
+  #graficoJuros {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  form button {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  input, select {
+    font-size: 0.95rem;
+    padding: 8px;
+  }
+
+  #graficoJuros {
+    height: 250px !important;
+  }
+}

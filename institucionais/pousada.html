@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pousada Serenidade - O refúgio perfeito na natureza com conforto e tranquilidade. Reserve agora sua estadia em nossa pousada encantadora.">
+    <title>Pousada Serenidade | Refúgio na Natureza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a7c59;
+            --secondary: #f8f4e3;
+            --accent: #d4a59a;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f7;
+            color: #333;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 80vh;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a6148;
+            transform: translateY(-2px);
+        }
+        
+        .room-card {
+            transition: all 0.3s;
+            border: 1px solid #e2e2e2;
+        }
+        
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card {
+            background-color: var(--secondary);
+            border-left: 4px solid var(--accent);
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .amenity-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-umbrella-beach text-2xl text-[var(--primary)] mr-2"></i>
+                <h1 class="text-xl font-bold text-[var(--primary)]">Pousada Serenidade</h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="text-gray-700 hover:text-[var(--primary)] font-medium">Home</a></li>
+                    <li><a href="#sobre" class="text-gray-700 hover:text-[var(--primary)] font-medium">Sobre</a></li>
+                    <li><a href="#acomodacoes" class="text-gray-700 hover:text-[var(--primary)] font-medium">Acomodações</a></li>
+                    <li><a href="#servicos" class="text-gray-700 hover:text-[var(--primary)] font-medium">Serviços</a></li>
+                    <li><a href="#depoimentos" class="text-gray-700 hover:text-[var(--primary)] font-medium">Depoimentos</a></li>
+                    <li><a href="#contato" class="text-gray-700 hover:text-[var(--primary)] font-medium">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-[var(--primary)] text-xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Descubra o Refúgio Perfeito</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Conforto, tranquilidade e conexão com a natureza em nosso encantador refúgio</p>
+            <a href="#contato" class="btn-primary inline-block px-8 py-3 rounded-full font-semibold text-lg">Reserve Agora</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-16 bg-[var(--secondary)]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[var(--primary)] mb-4">Sobre Nossa Pousada</h2>
+                <div class="w-20 h-1 bg-[var(--accent)] mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Pousada Serenidade" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold text-[var(--primary)] mb-4">Bem-vindo à Pousada Serenidade</h3>
+                    <p class="text-gray-700 mb-4">Localizada no coração da encantadora cidade de Monte Verde, nossa pousada é um oásis de paz e tranquilidade, perfeito para quem busca escapar da agitação do dia a dia.</p>
+                    <p class="text-gray-700 mb-6">Com mais de 15 anos de experiência em hospedagem, nos dedicamos a proporcionar momentos inesquecíveis aos nossos hóspedes, combinando conforto moderno com o charme rústico da região.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-[var(--primary)] mr-2"></i>
+                            <span>Atendimento personalizado</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-[var(--primary)] mr-2"></i>
+                            <span>Café da manhã caseiro</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-[var(--primary)] mr-2"></i>
+                            <span>Ambiente familiar</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-[var(--primary)] mr-2"></i>
+                            <span>Localização privilegiada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="acomodacoes" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[var(--primary)] mb-4">Nossas Acomodações</h2>
+                <div class="w-20 h-1 bg-[var(--accent)] mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Conheça nossos espaços cuidadosamente projetados para oferecer o máximo de conforto e aconchego</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Room 1 -->
+                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Suíte Standard" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[var(--primary)] mb-2">Suíte Standard</h3>
+                        <p class="text-gray-600 mb-4">Perfeita para casais, com cama queen size, TV e banheiro privativo.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 280/noite</span>
+                            <a href="#contato" class="text-[var(--primary)] font-medium hover:underline">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Room 2 -->
+                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1566669437685-bc1f9dfc536b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Suíte Familiar" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[var(--primary)] mb-2">Suíte Familiar</h3>
+                        <p class="text-gray-600 mb-4">Amplo espaço para até 4 pessoas, com cama de casal e beliches.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 380/noite</span>
+                            <a href="#contato" class="text-[var(--primary)] font-medium hover:underline">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Room 3 -->
+                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Chalé Premium" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[var(--primary)] mb-2">Chalé Premium</h3>
+                        <p class="text-gray-600 mb-4">Experiência exclusiva com varanda privativa e vista para o jardim.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 450/noite</span>
+                            <a href="#contato" class="text-[var(--primary)] font-medium hover:underline">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-16 bg-[var(--secondary)]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[var(--primary)] mb-4">Nossos Serviços</h2>
+                <div class="w-20 h-1 bg-[var(--accent)] mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Tudo que você precisa para uma estadia perfeita</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div class="text-center p-6 bg-white rounded-lg shadow-sm">
+                    <div class="amenity-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-[var(--primary)] mb-2">Café da Manhã</h3>
+                    <p class="text-gray-600">Delicioso café da manhã caseiro com produtos locais servido diariamente.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="text-center p-6 bg-white rounded-lg shadow-sm">
+                    <div class="amenity-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-[var(--primary)] mb-2">Wi-Fi Gratuito</h3>
+                    <p class="text-gray-600">Conexão de alta velocidade disponível em todas as áreas da pousada.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="text-center p-6 bg-white rounded-lg shadow-sm">
+                    <div class="amenity-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-[var(--primary)] mb-2">Tour Guiado</h3>
+                    <p class="text-gray-600">Passeios pelos pontos turísticos locais com guias especializados.</p>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="text-center p-6 bg-white rounded-lg shadow-sm">
+                    <div class="amenity-icon">
+                        <i class="fas fa-parking"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-[var(--primary)] mb-2">Estacionamento</h3>
+                    <p class="text-gray-600">Área privativa e segura para estacionar seu veículo gratuitamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="depoimentos" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[var(--primary)] mb-4">O Que Dizem Nossos Hóspedes</h2>
+                <div class="w-20 h-1 bg-[var(--accent)] mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Ana Silva" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Ana Silva</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Ficamos encantados com a Pousada Serenidade! O atendimento foi impecável, o café da manhã delicioso e o quarto muito confortável. Com certeza voltaremos!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Carlos Mendes" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Carlos Mendes</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Localização perfeita, silêncio absoluto à noite e uma equipe sempre disposta a ajudar. Recomendo a suíte premium com varanda - vale cada centavo!"</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Juliana Costa" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Juliana Costa</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Levei minha família e ficamos na suíte familiar. As crianças adoraram o espaço e os passeios que a pousada sugeriu. Experiência maravilhosa!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="py-16 bg-[var(--secondary)]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-[var(--primary)] mb-4">Entre em Contato</h2>
+                <div class="w-20 h-1 bg-[var(--accent)] mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Estamos à disposição para tornar sua estadia inesquecível</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <h3 class="text-xl font-semibold text-[var(--primary)] mb-4">Informações de Contato</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-[var(--primary)] mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-medium">Endereço</h4>
+                                <p class="text-gray-700">Rua das Flores, 123 - Centro<br>Monte Verde - MG</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-[var(--primary)] mr-3"></i>
+                            <div>
+                                <h4 class="font-medium">Telefone</h4>
+                                <p class="text-gray-700">(35) 99999-9999</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-[var(--primary)] mr-3"></i>
+                            <div>
+                                <h4 class="font-medium">Email</h4>
+                                <p class="text-gray-700">contato@pousadaserenidade.com.br</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold text-[var(--primary)] mb-4">Horário de Funcionamento</h3>
+                        <p class="text-gray-700">Recepção 24 horas<br>Check-in: 14h | Check-out: 12h</p>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <form class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-[var(--primary)] mb-4">Reserve Sua Estadia</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-1">Nome Completo</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="phone" class="block text-gray-700 mb-1">Telefone</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                            </div>
+                            <div>
+                                <label for="guests" class="block text-gray-700 mb-1">Número de Pessoas</label>
+                                <select id="guests" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5+">5+</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="checkin" class="block text-gray-700 mb-1">Check-in</label>
+                                <input type="date" id="checkin" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                            </div>
+                            <div>
+                                <label for="checkout" class="block text-gray-700 mb-1">Check-out</label>
+                                <input type="date" id="checkout" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="room" class="block text-gray-700 mb-1">Tipo de Acomodação</label>
+                            <select id="room" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
+                                <option value="">Selecione...</option>
+                                <option value="standard">Suíte Standard</option>
+                                <option value="family">Suíte Familiar</option>
+                                <option value="premium">Chalé Premium</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-gray-700 mb-1">Mensagem</label>
+                            <textarea id="message" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold">Enviar Reserva</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="h-96 w-full">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.487107559563!2d-45.8887889246866!3d-22.431932318997!
+</html>

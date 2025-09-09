@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catálogo de Produtos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+    }
+    .busca {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .busca input {
+      width: 300px;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .produto {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  display: flex;             /* Flexbox para organizar filhos verticalmente */
+  flex-direction: column;
+  justify-content: space-between; /* Distribui conteúdo e botão com espaço */
+  height: 400px;             /* Altura fixa para todos os cards */
+}
+
+.produto img {
+  max-width: 100%;
+  height: 180px;             /* Altura fixa para imagens */
+  object-fit: cover;         /* Corta a imagem para preencher o espaço */
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.produto h2 {
+  font-size: 1.1em;
+  margin: 10px 0;
+  min-height: 48px;          /* Altura mínima para títulos, mantém alinhamento */
+  overflow: hidden;
+  text-overflow: ellipsis;   /* Corta texto longo com "..." */
+  white-space: nowrap;       /* Evita quebra de linha */
+}
+
+.whatsapp-btn {
+  display: block;            /* Botão ocupa toda largura */
+  background: #25D366;
+  color: white;
+  padding: 12px 0;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  margin-top: auto;          /* Empurra botão para a base do card */
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5c;
+}
+
+  </style>
+</head>
+<body>
+  <h1>Catálogo de Produtos</h1>
+
+  <!-- Campo de Busca -->
+  <div class="busca">
+    <input type="text" id="filtro" placeholder="Buscar produto..." />
+  </div>
+
+  <!-- Catálogo -->
+  <div class="catalogo" id="catalogo"></div>
+
+  <script>
+    const numeroWhatsapp = "5589981267779";
+
+    // Lista de produtos
+  
+   
+ const produtos = [
+  { nome: "Produto 1", imagem: "img/mouse.jpg" },
+  { nome: "Produto 2", imagem: "img/mouseGamer.jpg" },
+  { nome: "Produto 3", imagem: "img/mousepad extragrande.jpg" },
+  { nome: "Produto 4", imagem: "img/mousepad tematico.jpg" },
+  { nome: "Produto 5", imagem: "img/teclado.jpg" },
+  { nome: "Produto 6", imagem: "img/smartTVroku.jpg" },
+  { nome: "Produto 7", imagem: "img/smartTV.jpg" },
+  { nome: "Produto 8", imagem: "img/mousePadFeminino.jpg" }
+
+// Pode adicionar mais aqui...
+  ];''
+
+    const container = document.getElementById("catalogo");
+    const campoBusca = document.getElementById("filtro");
+
+    // Função para renderizar produtos
+    function renderizarCatalogo(lista) {
+      container.innerHTML = lista.map(produto => {
+        const mensagem = encodeURIComponent(`Olá! Tenho interesse no ${produto.nome}`);
+        return `
+          <div class="produto">
+            <img src="${produto.imagem}" alt="${produto.nome}" loading="lazy" />
+            <h2>${produto.nome}</h2>
+            <a class="whatsapp-btn" href="https://wa.me/${numeroWhatsapp}?text=${mensagem}" target="_blank" rel="noopener noreferrer">
+              Falar no WhatsApp
+            </a>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // Renderizar todos no início
+    renderizarCatalogo(produtos);
+
+    // Filtrar conforme digita
+    campoBusca.addEventListener("input", () => {
+      const termo = campoBusca.value.toLowerCase();
+      const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(termo));
+      renderizarCatalogo(filtrados);
+    });
+  </script>
+</body>
+</html>

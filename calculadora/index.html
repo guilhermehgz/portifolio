@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Juros Compostos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Calculadora de Juros Compostos</h1>
+  </header>
+<!-- Coluna de anúncios à esquerda -->
+<aside class="ads-column left">
+  <div class="ad-250">
+    <p>Anúncio Esquerdo 1</p>
+  </div>
+  <div class="ad-250">
+    <p>Anúncio Esquerdo 2</p>
+  </div>
+  <div class="ad-250">
+    <p>Anúncio Esquerdo 3</p>
+  </div>
+</aside>
+  <main>
+  <section id="formulario">
+  <form id="calculator-form">
+    <fieldset>
+      <legend>Dados do Investimento</legend>
+      <div>
+        <label for="principal">Capital Inicial:</label>
+        <input type="text" id="principal" name="principal" required>
+
+        <label for="aporte">Aporte Mensal:</label>
+        <input type="text" id="aporte" name="aporte" required>
+      </div>
+
+      <div class="taxa-grupo">
+        <label for="taxa">Taxa de Juros (%):</label>
+        <input type="text" id="taxa" name="taxa" placeholder="Ex: 5%">
+        <select id="tempo" name="tempo">
+          <option value="anual">Anual</option>
+          <option value="mensal">Mensal</option>
+        </select>
+      </div>
+
+      <label for="time">Tempo (anos):</label>
+      <input type="text" id="time" name="time">
+
+      <button type="submit">Calcular</button>
+    </fieldset>
+  </form>
+</section>
+
+    <section id="grafico">
+      <h2>Gráfico de Juros Compostos</h2>
+      <canvas id="graficoJuros"></canvas>
+    </section>
+    <!-- Anúncio horizontal no rodapé -->
+
+    <section class="resultados finais">
+      <h2>Resultados Finais</h2>
+      <div id="resultado-final">
+        <p>Total Investido: <span id="total-investido">R$ 0,00</span></p>
+        <p>Total com Juros: <span id="total-com-juros">R$ 0,00</span></p>
+        <p>Juros Acumulados: <span id="juros-acumulados">R$ 0,00</span></p>
+      </div>
+    </section>
+    <section id="tabela-resultados">
+      <h2>Resultados da Simulação</h2>
+      <div class="scroll-tabela">
+        <table>
+          <thead>
+            <tr>
+              <th>Mês</th>
+              <th>Investido (R$)</th>
+              <th>Juros do Mês (R$)</th>
+              <th>Juros Acumulados (R$)</th>
+              <th>Total Acumulado (R$)</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+ <!-- Coluna de anúncios à direita -->
+<aside class="ads-column right">
+  <div class="ad-250">
+    <p>Anúncio Direito 1</p>
+  </div>
+  <div class="ad-250">
+    <p>Anúncio Direito 2</p>
+  </div>
+  <div class="ad-250">
+    <p>Anúncio Direito 3</p>
+  </div>
+</aside>
+  <!-- Anúncio horizontal no rodapé -->
+<div class="ads-horizontal">
+  <p>900x100 - Anúncio Rodapé</p>
+</div>
+  <footer>
+    &copy; 2025 Calculadora de Juros Compostos
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="juros.js"></script>
+</body>
+</html>

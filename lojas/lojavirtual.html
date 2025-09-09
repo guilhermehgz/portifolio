@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Produtos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .whatsapp-btn {
+            transition: all 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+            background-color: #128C7E;
+        }
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+        .filter-btn.active {
+            background-color: #4F46E5;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-indigo-600 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold">Loja Virtual</h1>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar produtos..." class="py-2 px-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-64">
+                        <button class="absolute right-3 top-2 text-gray-500">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button class="bg-white text-indigo-600 px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                        <i class="fas fa-shopping-cart mr-2"></i>Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar Filters -->
+            <aside class="w-full md:w-64 bg-white p-6 rounded-lg shadow-md h-fit">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">Filtros</h2>
+                
+                <div class="mb-6">
+                    <h3 class="font-medium text-gray-700 mb-2">Categorias</h3>
+                    <ul class="space-y-2">
+                        <li><button class="filter-btn active w-full text-left py-2 px-3 rounded" data-category="all">Todos</button></li>
+                        <li><button class="filter-btn w-full text-left py-2 px-3 rounded" data-category="eletronicos">Eletrônicos</button></li>
+                        <li><button class="filter-btn w-full text-left py-2 px-3 rounded" data-category="moda">Moda</button></li>
+                        <li><button class="filter-btn w-full text-left py-2 px-3 rounded" data-category="casa">Casa e Jardim</button></li>
+                        <li><button class="filter-btn w-full text-left py-2 px-3 rounded" data-category="beleza">Beleza</button></li>
+                    </ul>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="font-medium text-gray-700 mb-2">Preço</h3>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-600">R$0</span>
+                        <span class="text-sm text-gray-600">R$2000</span>
+                    </div>
+                    <input type="range" min="0" max="2000" value="2000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="font-medium text-gray-700 mb-2">Avaliação</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rating5" class="mr-2">
+                            <label for="rating5" class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rating4" class="mr-2">
+                            <label for="rating4" class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-gray-300"></i>
+                            </label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rating3" class="mr-2">
+                            <label for="rating3" class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-gray-300"></i>
+                                <i class="fas fa-star text-gray-300"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+                    Aplicar Filtros
+                </button>
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Nossos Produtos</h2>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-600">Ordenar por:</span>
+                        <select class="border rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                            <option>Mais recentes</option>
+                            <option>Menor preço</option>
+                            <option>Maior preço</option>
+                            <option>Melhor avaliados</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="product-grid">
+                    <!-- Product Card 1 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden" data-category="eletronicos">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Smartphone" class="w-full h-64 object-cover">
+                            <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                -20%
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-800">Smartphone Premium</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="text-gray-600 ml-1">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Tela 6.7", 256GB, Câmera Tripla 108MP</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-gray-500 line-through text-sm">R$ 3.999</span>
+                                    <span class="text-indigo-600 font-bold text-xl ml-2">R$ 3.199</span>
+                                </div>
+                                <button class="whatsapp-btn bg-green-500 text-white p-2 rounded-full" data-product="Smartphone Premium">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden" data-category="moda">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1559&q=80" alt="Tênis Esportivo" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-800">Tênis Esportivo</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="text-gray-600 ml-1">4.5</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Confortável e durável para corridas e caminhadas</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-indigo-600 font-bold text-xl">R$ 299</span>
+                                <button class="whatsapp-btn bg-green-500 text-white p-2 rounded-full" data-product="Tênis Esportivo">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden" data-category="casa">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Luminária Moderna" class="w-full h-64 object-cover">
+                            <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                Novo
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-800">Luminária Moderna</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="text-gray-600 ml-1">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Design elegante com controle de intensidade</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-indigo-600 font-bold text-xl">R$ 189</span>
+                                <button class="whatsapp-btn bg-green-500 text-white p-2 rounded-full" data-product="Luminária Moderna">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden" data-category="beleza">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Kit de Maquiagem" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-800">Kit Maquiagem Profissional</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="text-gray-600 ml-1">4.7</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">24 cores, vegano e hipoalergênico</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-indigo-600 font-bold text-xl">R$ 159</span>
+                                <button class="whatsapp-btn bg-green-500 text-white p-2 rounded-full" data-product="Kit Maquiagem Profissional">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 5 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden" data-category="eletronicos">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Notebook Ultra" class="w-full h-64 object-cover">
+                            <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                -15%
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-800">Notebook Ultra</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="text-gray-600 ml-1">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">i7, 16GB RAM, SSD 1TB, Tela 15.6" 4K</p>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="text-gray-500 line-through text-sm">R$ 6.499</span>
+                                    <span class="text-indigo-600 font-bold text-xl ml-2">R$ 5.499</span>
+                                </div>
+                                <button class="whatsapp-btn bg-green-500 text-white p-2 rounded-full" data-product="Notebook Ultra">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 6 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden" data-category="casa">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Jogo de Panelas" class="w-full h-64 object-cover">
+                            <div class="absolute top-2 right-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                Mais Vendido
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-gray-800">Jogo de Panelas Premium</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="text-gray-600 ml-1">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">10 peças, antiaderente, revestimento cerâmico</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-indigo-600 font-bold text-xl">R$ 429</span>
+                                <button class="whatsapp-btn bg-green-500 text-white p-2 rounded-full" data-product="Jogo de Panelas Premium">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center mt-10">
+                    <nav class="inline-flex rounded-md shadow">
+                        <a href="#" class="px-4 py-2 rounded-l-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50 font-medium">1</a>
+                        <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50">2</a>
+                        <a href="#" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50">3</a>
+                        <a href="#" class="px-4 py-2 rounded-r-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Loja Virtual</h3>
+                    <p class="text-gray-400">Os melhores produtos com os melhores preços. Entrega rápida para todo o Brasil.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Institucional</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Quem somos</a></li>
+                        <li><a href="#" class="hover:text-white">Nossas lojas</a></li>
+                        <li><a href="#" class="hover:text-white">Trabalhe conosco</a></li>
+                        <li><a href="#" class="hover:text-white">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Atendimento</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Central de ajuda</a></li>
+                        <li><a href="#" class="hover:text-white">Meus pedidos</a></li>
+                        <li><a href="#" class="hover:text-white">Devolução e troca</a></li>
+                        <li><a href="#" class="hover:text-white">Termos de uso</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contato</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            <span>(11) 4002-8922</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>contato@lojavirtual.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            <span>(11) 98765-4321</span>
+                        </div>
+                        <div class="flex mt-4 space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>© 2023 Loja Virtual. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/5511987654321" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition flex items-center justify-center">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
+    <script>
+        // WhatsApp button functionality
+        document.querySelectorAll('.whatsapp-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.getAttribute('data-product');
+                const phoneNumber = '5511987654321'; // Replace with your WhatsApp number
+                const message = `Olá, estou interessado no produto: ${productName}. Poderia me ajudar?`;
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                const products = document.querySelectorAll('.product-card');
+                
+                if (category === 'all') {
+                    products.forEach(product => {
+                        product.style.display = 'block';
+                    });
+                } else {
+                    products.forEach(product => {
+                        if (product.getAttribute('data-category') === category) {
+                            product.style.display = 'block';
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+
+        // Price range filter
+        const priceRange = document.querySelector('input[type="range"]');
+        priceRange.addEventListener('input', function() {
+            // In a real implementation, you would filter products by price
+            console.log('Price filter changed to:', this.value);
+        });
+    </script>
+</body>
+</html>

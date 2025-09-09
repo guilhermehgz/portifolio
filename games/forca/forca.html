@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Forca</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .word {
+      font-size: 2rem;
+      margin: 20px 0;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    .letters {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      justify-items: center;
+      margin: 20px 0;
+      padding: 0 10px;
+    }
+
+    .letter {
+      font-size: 1.3rem;
+      padding: 10px 0;
+      background-color: #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      user-select: none;
+      width: 100%;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+
+    .letter:hover {
+      background-color: #bbb;
+    }
+
+    .chosen {
+      color: red;
+      background-color: #eee;
+      cursor: default;
+    }
+
+    .message {
+      margin: 20px 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .attempts {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .game-over {
+      font-size: 2rem;
+      font-weight: bold;
+      color: red;
+    }
+
+    .win {
+      font-size: 2rem;
+      font-weight: bold;
+      color: green;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .category-select {
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+  .container {
+    max-width: 100%;
+    padding: 10px;
+  }
+  .word {
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+  }
+  .letters {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    padding: 0 2px;
+  }
+  .letter {
+    font-size: 1.1rem;
+    padding: 8px 0;
+  }
+  button, #input-letra {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+}
+  </style>
+</head>
+<body>
+  <h1>Jogo da Forca</h1>
+  <div class="container">
+    <div class="category-select">
+      <label for="category">Escolha uma categoria:</label>
+      <select id="category">
+        <option value="frutas">Frutas</option>
+        <option value="cidades">Cidades</option>
+        <option value="objetos">Objetos</option>
+        <option value="marcas">Marcas</option>
+        <option value="nomes">Nome de Pessoa</option>
+        <option value="animais">Animais</option>
+        <option value="geral">Geral</option>
+      </select>
+    </div>
+    <div class="word" id="word"></div>
+    <div class="letters" id="letters"></div>
+    <div class="attempts" id="attempts"></div>
+    <div class="message" id="message"></div>
+    <div id="score">Pontos: 0</div>
+    <button onclick="reiniciarJogo()">Reiniciar Jogo</button>
+    <button onclick="voltarPaginaInicial()">Voltar à Página Inicial</button>
+    <input id="input-letra" type="text" maxlength="1" pattern="[a-zA-Záéíóúãõâêîôûçàèìòù]" placeholder="Digite uma letra" style="font-size:1.2rem; text-align:center; width:60px; margin-bottom:10px;" oninput="onInputLetra(this)">
+  </div>
+
+  <script>
+    const palavrasFrutas = [
+  'banana', 'maçã', 'laranja', 'manga', 'kiwi', 'morango', 'goiaba', 'abacaxi', 'pera', 'cabeludinha', 'amora', 'tamarindo', 'cabeluda', 'pêssego', 'caqui', 'figo', 'açaí', 'groselha', 'mamão', 'limão', 'uva', 'melancia', 'mangaba', 'jabuticaba', 'graviola', 'melão', 'abiu', 'seriguela', 'carambola', 'pitanga', 'framboesa', 'mirtilo', 'nectarina', 'damasco', 'caju', 'acerola', 'maracujá', 'tangerina', 'romã', 'physalis', 'sapoti', 'cupuaçu', 'cacau', 'buriti', 'umbu', 'jenipapo', 'jaca', 'longan', 'rambutan',
+  'morango silvestre', 'cambuci', 'camu-camu', 'mirindiba', 'murici', 'bacaba', 'bacuri', 'baru', 'biribá', 'cajá', 'cajá-manga', 'cajá-mirim', 'cajá-rosa', 'cajá-verde', 'cambucá', 'canistel', 'cará', 'castanha', 'castanha-do-pará', 'cereja', 'cereja-do-rio-grande', 'ciriguela', 'cupuaçu', 'damasco', 'dendê', 'feijoa', 'fruta-pão', 'fruta-do-conde', 'grumixama', 'guabiroba', 'guaraná', 'ingá', 'jabuticaba', 'jambo', 'jamelão', 'jenipapo', 'juá', 'lima', 'limão-cravo', 'limão-siciliano', 'litchi', 'mamoncillo', 'mangostão', 'marolo', 'melão-de-são-caetano', 'mexerica', 'mogango', 'moriche', 'muruci', 'nêspera','pequi', 'pitaia', 'pitaia-amarela', 'pitaia-vermelha', 'pitaia-roxa', 'pitanga', 'pupunha', 'quixaba', 'soursop', 'tamarindo', 'tucumã', 'umbu-cajá', 'umbu-caja', 'uvaia', 'xixá',
+];
+
+const palavrasCidades = [
+  'são paulo', 'rio de janeiro', 'salvador', 'curitiba', 'belo horizonte', 'porto alegre', 'fortaleza', 'brasília', 'manaus', 'recife', 'goiânia', 'campinas', 'são bernardo do campo', 'santos', 'vitória', 'são carlos', 'juiz de fora', 'maceió', 'florianópolis', 'ribeirão preto', 'são josé dos campos', 'cuiabá', 'belém', 'aracaju', 'natal', 'macapá', 'teresina', 'palmas', 'dourados', 'petrolina', 'maringá', 'joinville', 'londrina', 'anápolis', 'caxias do sul', 'canoas', 'caruaru', 'campina grande', 'blumenau', 'itabuna', 'ilhéus', 'sorocaba', 'piracicaba', 'franca', 'barueri', 'aparecida de goiânia', 'taboão da serra', 'suzano',
+  'marília', 'presidente prudente', 'ubatuba', 'taubaté', 'jacareí', 'guarulhos', 'osasco', 'diadema', 'mogi das cruzes', 'caraguatatuba', 'são vicente', 'praia grande', 'cubatao', 'são caetano do sul', 'são joão da boa vista', 'araraquara', 'araras', 'americana', 'hortolândia', 'sumaré', 'indaiatuba', 'itu', 'jundiaí', 'limeira', 'pirassununga', 'rio claro', 'santo andre', 'são josé do rio preto', 'são roque', 'sertãozinho', 'tatui', 'votorantim', 'vinhedo', 'botucatu', 'bragança paulista', 'barretos', 'bauru', 'birigui', 'catanduva', 'fernandópolis', 'franca', 'jaú', 'lençóis paulista', 'matão', 'mirassol', 'ourinhos', 'penápolis', 'pindamonhangaba', 'são carlos', 'são manuel'
+];
+
+const palavrasObjetos = [
+  'mesa', 'cadeira', 'caneta', 'livro', 'guitarra', 'computador', 'carro', 'relógio', 'televisão', 'faca', 'porta', 'janela', 'telefone', 'sofá', 'microfone', 'celular', 'panela', 'abajur', 'abafador', 'garrafa', 'luminária', 'fone de ouvido', 'tv', 'mouse', 'teclado', 'notebook', 'scanner', 'impressora', 'ar condicionado', 'ventilador', 'armário', 'espelho', 'escada', 'colchão', 'travesseiro', 'tapete', 'prato', 'xícara', 'copos', 'garfo', 'colher', 'mochila', 'estojo', 'borracha', 'apontador', 'grampeador', 'tesoura', 'chave', 'cadeado',
+  'aspirador', 'balde', 'batedeira', 'cafeteira', 'calculadora', 'cesto', 'chaleira', 'clipe', 'coador', 'colher de pau', 'escorredor', 'espremedor', 'ferro de passar', 'frigideira', 'gaveta', 'jarra', 'lampada', 'liquidificador', 'maleta', 'martelo', 'peneira', 'pincel', 'pote', 'quadro', 'ralador', 'regador', 'rolo de massa', 'saca-rolhas', 'sapato', 'secador', 'sofá-cama', 'suporte', 'tábua', 'tampa', 'tapete de entrada', 'termômetro', 'tigela', 'toalha', 'torneira', 'trena', 'vaso', 'ventilador de teto', 'vassoura', 'vidro', 'zíper', 'escova', 'escumadeira', 'espátula', 'garrafa térmica','lixeira', 'luva de forno', 'panela de pressão', 'pote hermético', 'prateleira', 'régua', 'sacola reutilizável', 'sanduicheira', 'torradeira', 'varal', 'vassoura elétrica', 'batedor de ovos', 'cortador de grama', 'despertador', 'escova de dentes', 'filtro de café', 'grelha', 'jogo de panelas', 'kit de ferramentas', 'lâmpada LED', 'manta térmica', 'moedor de café', 'organizador de gaveta', 'pincel de maquiagem', 'porta-retrato', 'protetor solar', 'sacola térmica', 'tábua de passar roupa', 'tapete antiderrapante', 'termômetro digital', 'toalha de mesa', 'travesseiro ortopédico', 'varinha mágica', 'ventilador portátil'
+];
+
+const palavrasMarcas = [
+  'apple', 'microsoft', 'google', 'samsung', 'sony', 'nike', 'adidas', 'coca-cola', 'pepsi', 'heineken', 'mercedes', 'toyota', 'ford', 'bmw', 'volkswagen', 'puma', 'reebok', 'louis vuitton', 'gucci', 'chanel', 'cartier', 'l\'oréal', 'mac', 'amazon', 'huawei', 'facebook', 'instagram', 'tesla', 'lego', 'nintendo', 'xiaomi', 'nestlé', 'danone', 'colgate', 'philips', 'panasonic', 'lenovo', 'motorola', 'johnson', 'unilever', 'shell', 'petrobras', 'bradesco', 'itau', 'nubank', 'magalu', 'renner', 'carrefour', 'extra',
+  'starbucks', 'burger king', 'subway', 'mcdonald\'s', 'spotify', 'uber', 'airbnb', 'whatsapp', 'telegram', 'linkedin', 'youtube', 'netflix', 'disney', 'pixar', 'warner', 'hp', 'dell', 'acer', 'asus', 'toshiba', 'kia', 'hyundai', 'fiat', 'jeep', 'ram', 'volvo', 'citroën', 'peugeot', 'mitsubishi', 'mazda', 'ferrari', 'lamborghini', 'bugatti', 'rolls-royce', 'bentley', 'jaguar', 'land rover', 'porsche', 'subaru', 'suzuki', 'scania', 'iveco', 'john deere', 'case', 'new holland', 'bosch', 'siemens', '3m', 'dupont','caterpillar', 'caterpillar', 'cisco', 'intel', 'amd', 'nvidia', 'qualcomm', 'bose', 'jbl', 'sony music', 'universal music', 'warner music', 'columbia records', 'capitol records', 'epic records', 'atlantic records', 'def jam recordings', 'interscope records'
+];
+
+const palavrasNomes = [
+  'ana', 'luana', 'maria', 'joana', 'carlos', 'gustavo', 'felipe', 'luiz', 'eliane', 'pedro', 'juliana', 'gabriel', 'mateus', 'isabela', 'victor', 'leonardo', 'fernanda', 'bruna', 'lucas', 'thiago', 'rafaela', 'marcos', 'luciana', 'daniele', 'carla', 'adriana', 'rosângela', 'monique', 'gisele', 'andréa', 'aline', 'patrícia', 'rodrigo', 'eduardo', 'camila', 'letícia', 'beatriz', 'paulo', 'ricardo', 'vanessa', 'tatiane', 'simone', 'aline', 'sabrina', 'fabiana', 'renata', 'jorge', 'sandra', 'silvia',
+  'alexandre', 'bernardo', 'caio', 'daniel', 'emily', 'fabio', 'giovana', 'helena', 'igor', 'jessica', 'karina', 'lara', 'mariana', 'natalia', 'otavio', 'patricia', 'quiteria', 'rafael', 'samuel', 'tania', 'ulisses', 'valeria', 'wellington', 'yasmin', 'zuleica', 'aline', 'bruno', 'caroline', 'diego', 'eduarda', 'fernando', 'gustavo', 'hugo', 'isabel', 'joao', 'karen', 'leandro', 'marcio', 'nadja', 'olivia', 'priscila', 'quiteria', 'roberta', 'sergio', 'thais', 'ursula', 'victoria', 'william', 'yara', 'zeca','zilda', 'alessandra', 'beatriz', 'claudia', 'danilo', 'elias', 'fabio', 'guilherme', 'hugo', 'igor', 'julia', 'klaus', 'livia', 'marcos', 'nicolas', 'olga', 'paula', 'quiteria', 'roberto', 'sabrina', 'tomas', 'ursula', 'vitor', 'wagner', 'yara', 'zeca','zilda', 'ana paula', 'bruno henrique', 'carla rodrigues', 'daniela silva', 'eduardo souza', 'fernanda alves', 'gustavo lima', 'hugo costa', 'isabela rocha', 'joão pedro', 'karla oliveira', 'luan santana', 'mariana ferreira', 'natalia mendes', 'olga pereira', 'paulo henrique', 'quiteria ribeiro', 'roberto carlos', 'sandra maria', 'thiago silva', 'victor costa', 'william alves', 'yara oliveira', 'zeca souza', 'zilda'
+];
+
+const palavrasAnimais = [
+  'gato', 'cachorro', 'elefante', 'leão', 'tigre', 'urso', 'cavalo', 'macaco', 'coelho', 'galo', 'galinha', 'pato', 'cervo', 'onça', 'lobo', 'rato', 'siri', 'caranguejo', 'golfinho', 'tartaruga', 'crocodilo', 'camelo', 'pinguim', 'águia', 'papagaio', 'jacaré', 'camundongo', 'hamster', 'baleia', 'girafa', 'rinoceronte', 'hipopótamo', 'zebra', 'antílope', 'capivara', 'bicho-preguiça', 'tamanduá', 'tucano', 'arara', 'coruja', 'falcão', 'lagarto', 'iguana', 'salamandra', 'sapo', 'cobra', 'jabuti', 'carpa', 'tilápia',
+  'anta', 'bicho-da-seda', 'bicho-geográfico', 'bicho-pau', 'bicho-preguiça', 'bicho-da-cuca', 'borboleta', 'camarão', 'camaleão', 'capivara', 'carneiro', 'castor', 'cavalo-marinho', 'centopeia', 'cigarra', 'cisne', 'doninha', 'ema', 'esquilo', 'foca', 'formiga', 'gambá', 'ganso', 'garça', 'gavião', 'grilo', 'guaxinim', 'hipopótamo', 'jabuti', 'jaguatirica', 'joaninha', 'lagosta', 'leopardo', 'libélula', 'lince', 'mariposa', 'morcego', 'ouriço', 'ovelha', 'panda', 'pantera', 'pardal', 'pelicano', 'periquito', 'pica-pau', 'porco', 'quati', 'raposa', 'rinoceronte', 'salamandra','sapo-cururu', 'sapo-boi','tigre-de-bengala', 'tubarão', 'tucano', 'urso-polar', 'vaca', 'veado', 'vulcão-marinho', 'xaxim', 'zangão', 'zebra-das-neves', 'zorrilho','gorila', 'chimpanzé', 'orangotango', 'bonobo', 'mandril', 'babuíno', 'macaco-prego', 'macaquinho', 'sagui', 'muriqui', 'bugio', 'capuchinho', 'lêmure', 'tamarin', 'cercopiteco', 'guereza', 'colobus', 'langur', 'gibão', 'sifaka', 'indri','marimbondo', 
+];
+
+const palavrasGeral = [
+  ...palavrasFrutas,
+  ...palavrasCidades,
+  ...palavrasObjetos,
+  ...palavrasMarcas,
+  ...palavrasNomes,
+  ...palavrasAnimais
+];
+    
+    let palavras = palavrasFrutas;
+    let palavraEscolhida;
+    let tentativasRestantes;
+    let letrasCorretas;
+    let letrasErradas;
+    let pontos = 0;
+
+    function escolherPalavra() {
+      return palavras[Math.floor(Math.random() * palavras.length)];
+    }
+
+    function reiniciarJogo() {
+      palavraEscolhida = escolherPalavra();
+      tentativasRestantes = 6;
+      letrasCorretas = [];
+      letrasErradas = [];
+      atualizarJogo();
+    }
+
+    function atualizarJogo() {
+      const palavraExibida = palavraEscolhida.split('').map(letra => (letrasCorretas.includes(letra) ? letra : '_')).join(' ');
+      document.getElementById('word').textContent = palavraExibida;
+
+      document.getElementById('letters').innerHTML = '';
+      'abcdefghijklmnopqrstuvwxyzáéíóúãõâêîôûçàèìòù'.split('').forEach(letra => {
+        const button = document.createElement('div');
+        button.classList.add('letter');
+        button.textContent = letra;
+        button.onclick = () => tentar(letra);
+        if (letrasCorretas.includes(letra) || letrasErradas.includes(letra)) {
+          button.classList.add('chosen');
+          button.style.pointerEvents = 'none';
+        }
+        document.getElementById('letters').appendChild(button);
+      });
+
+      document.getElementById('attempts').textContent = `Tentativas restantes: ${tentativasRestantes}`;
+      document.getElementById('score').textContent = `Pontos: ${pontos}`;
+
+      const msg = document.getElementById('message');
+      msg.classList.remove('game-over', 'win');
+      msg.textContent = '';
+
+      if (tentativasRestantes === 0) {
+        msg.textContent = `Você perdeu! A palavra era "${palavraEscolhida}".`;
+        msg.classList.add('game-over');
+      }
+      if (palavraEscolhida.split('').every(letra => letrasCorretas.includes(letra))) {
+        pontos += 10;
+        msg.textContent = 'Você venceu!';
+        msg.classList.add('win');
+      }
+      document.getElementById('input-letra').focus();
+    }
+
+    function tentar(letra) {
+      if (palavraEscolhida.includes(letra)) {
+        letrasCorretas.push(letra);
+      } else {
+        letrasErradas.push(letra);
+        tentativasRestantes--;
+      }
+      atualizarJogo();
+    }
+
+    document.getElementById('category').addEventListener('change', function() {
+      const categoriaSelecionada = document.getElementById('category').value;
+      switch (categoriaSelecionada) {
+        case 'frutas':
+          palavras = palavrasFrutas;
+          break;
+        case 'cidades':
+          palavras = palavrasCidades;
+          break;
+        case 'objetos':
+          palavras = palavrasObjetos;
+          break;
+        case 'marcas':
+          palavras = palavrasMarcas;
+          break;
+        case 'nomes':
+          palavras = palavrasNomes;
+          break;
+        case 'animais':
+          palavras = palavrasAnimais;
+          break;
+        case 'geral':
+          palavras = palavrasGeral;
+          break;
+      }
+      reiniciarJogo();
+    });
+
+    function voltarPaginaInicial() {
+      window.location.href = "../ggames.html"; // Redireciona para a tela inicial dos jogos
+    }
+
+    reiniciarJogo();
+document.getElementById('input-letra').focus();
+
+// Adicione este trecho após a função reiniciarJogo()
+document.addEventListener('keydown', function(event) {
+  const letra = event.key.toLowerCase();
+  if (
+    tentativasRestantes === 0 ||
+    palavraEscolhida.split('').every(l => letrasCorretas.includes(l))
+  ) return;
+  if (/^[a-záéíóúãõâêîôûçàèìòù]$/i.test(letra)) {
+    if (!letrasCorretas.includes(letra) && !letrasErradas.includes(letra)) {
+      tentar(letra);
+    }
+  }
+});
+
+function onInputLetra(input) {
+  const letra = input.value.toLowerCase();
+  input.value = '';
+  if (
+    tentativasRestantes === 0 ||
+    palavraEscolhida.split('').every(l => letrasCorretas.includes(l))
+  ) return;
+  if (/^[a-záéíóúãõâêîôûçàèìòù]$/i.test(letra) && !letrasCorretas.includes(letra) && !letrasErradas.includes(letra)) {
+    tentar(letra);
+  }
+}
+  </script>
+</body>
+</html>

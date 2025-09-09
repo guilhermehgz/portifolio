@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ggames</title>
+<style>
+  /* Reset e base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #eee;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  header {
+    background: rgba(31, 41, 55, 0.9);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    user-select: none;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+  nav li {
+    margin-left: 1.8rem;
+  }
+  nav a {
+    color: #a5b4fc;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  nav a:hover, nav a:focus {
+    color: white;
+    background-color: #6366f1;
+    box-shadow: 0 4px 12px #6366f180;
+  }
+
+  /* Botão hambúrguer */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  .menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #a5b4fc;
+    border-radius: 2px;
+  }
+
+  /* Main - Grid fluido */
+  main {
+    flex: 1;
+    padding: 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+  }
+
+  /* Cards */
+  .project-card {
+    background: linear-gradient(145deg, #1e293b, #334155);
+    border-radius: 16px;
+    padding: 2rem 1.8rem;
+    box-shadow: 8px 8px 15px #14202b, -8px -8px 15px #405568;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+  }
+  .project-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 12px 12px 25px #0c151f, -12px -12px 25px #4a677b;
+  }
+  .project-card h3 {
+    font-size: 1.8rem;
+    color: #a5b4fc;
+    margin-bottom: 0.8rem;
+    text-transform: capitalize;
+  }
+  .project-card p {
+    flex-grow: 1;
+    color: #cbd5e1;
+    margin-bottom: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .btn {
+    align-self: flex-start;
+    background-color: #6366f1;
+    color: white;
+    padding: 0.65rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px #6366f180;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  .btn:hover, .btn:focus {
+    background-color: #4f46e5;
+    box-shadow: 0 6px 18px #4f46e5cc;
+  }
+
+  /* Footer */
+  footer {
+    background-color: rgba(31, 41, 55, 0.9);
+    color: #a5b4fc;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    user-select: none;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+  }
+
+  /* Responsividade */
+  @media (max-width: 1024px) {
+    .project-card {
+      padding: 1.5rem 1.2rem;
+    }
+    .project-card h3 {
+      font-size: 1.5rem;
+    }
+    .project-card p {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(31, 41, 55, 0.95);
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    nav ul {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+    nav.show {
+      display: block;
+    }
+    main {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      padding: 1.5rem 1rem;
+      gap: 1.2rem;
+    }
+    .project-card h3 {
+      font-size: 1.3rem;
+    }
+    .btn {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    main {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    .project-card {
+      padding: 1rem;
+    }
+    .project-card h3 {
+      font-size: 1.2rem;
+    }
+    .project-card p {
+      font-size: 0.85rem;
+    }
+    .btn {
+      font-size: 0.85rem;
+      padding: 0.45rem 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>G games</h1>
+    <div class="menu-toggle" id="menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="menu">
+      <ul>
+        <li><a href="ggames.html" aria-current="page">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="project-card">
+      <h3>jogo da forca</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/forca/forca.html" class="btn">Jogar</a>
+    </div>
+    <div class="project-card">
+      <h3>jogo da memoria</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/JogoMemoria/JDM.html" class="btn">Jogar</a>
+    </div>
+    <div class="project-card">
+      <h3>quebra cabeça</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/Quebra_cabeça/Quebra.html" class="btn">Jogar</a>
+    </div>
+    <div class="project-card">
+      <h3>snake</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/jogocobrinha/snake.html" class="btn">Jogar</a>
+    </div>
+    <div class="project-card">
+      <h3>pong</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/pong/pong.html" class="btn">Jogar</a>
+    </div>
+    <div class="project-card">
+      <h3>flappy</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/flappy/flappy.html" class="btn">Jogar</a>
+    </div>
+    <div class="project-card">
+      <h3>2048 number fusion</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/2048/2048fusion.html" class="btn">Jogar</a>
+    </div>
+    <div class="project-card">
+      <h3>jogo da velha</h3>
+      <p>Jogos básicos em JavaScript com interação simples.</p>
+      <a href="/portifolio/games/jogovelha/jogodavelha.html" class="btn">Jogar</a>
+    </div>
+  </main>
+
+  <footer>
+    Ggames © 2025 - Todos os direitos reservados
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>

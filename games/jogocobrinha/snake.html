@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Jogo da Cobrinha</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0d0d0d;
+  color: #eee;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1000px;
+  width: 100%;
+  align-items: start;
+}
+
+h1 {
+  grid-column: span 2;
+  text-align: center;
+  color: #2196f3;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.painel {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button, select {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 200px;
+}
+
+button:hover, select:hover {
+  background-color: #1976d2;
+}
+
+#pontuacao {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+canvas {
+  background: #1a1a1a;
+  border: 2px solid #2196f3;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Botões virtuais para celular */
+.controles {
+  display: none;
+  margin-top: 15px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.controles button {
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  padding: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .controles {
+    display: flex;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Jogo da Cobrinha</h1>
+
+  <!-- Painel lateral -->
+  <div class="painel">
+    <label for="dificuldade">Dificuldade:</label>
+    <select id="dificuldade">
+      <option value="150">Fácil</option>
+      <option value="100">Médio</option>
+      <option value="70">Difícil</option>
+    </select>
+    <button onclick="iniciarJogo()">Iniciar Jogo</button>
+    <a href="../ggames.html">
+  <button>Voltar à Página Inicial</button>
+</a>
+
+    <div id="pontuacao">Pontuação: 0</div>
+
+    <!-- Controles virtuais (somente mobile) -->
+    <div class="controles">
+      <button onclick="mudarDirecao('up')">⬆️</button>
+      <div style="width:100%;display:flex;justify-content:center;gap:10px;">
+        <button onclick="mudarDirecao('left')">⬅️</button>
+        <button onclick="mudarDirecao('right')">➡️</button>
+      </div>
+      <button onclick="mudarDirecao('down')">⬇️</button>
+    </div>
+  </div>
+
+  <!-- Jogo -->
+  <div>
+    <canvas id="game" width="400" height="400"></canvas>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+const pontuacaoEl = document.getElementById("pontuacao");
+const dificuldadeEl = document.getElementById("dificuldade");
+
+const box = 20; // tamanho do quadrado
+let snake, direction, food, score, gameLoop, velocidade;
+
+function iniciarJogo() {
+  snake = [{ x: 9 * box, y: 9 * box }];
+  direction = "right";
+  score = 0;
+  velocidade = parseInt(dificuldadeEl.value);
+
+  gerarComida();
+  clearInterval(gameLoop);
+  gameLoop = setInterval(desenhar, velocidade);
+}
+
+function gerarComida() {
+  food = {
+    x: Math.floor(Math.random() * (canvas.width / box)) * box,
+    y: Math.floor(Math.random() * (canvas.height / box)) * box
+  };
+}
+
+function mudarDirecao(dir) {
+  if (dir === "up" && direction !== "down") direction = "up";
+  if (dir === "down" && direction !== "up") direction = "down";
+  if (dir === "left" && direction !== "right") direction = "left";
+  if (dir === "right" && direction !== "left") direction = "right";
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowUp") mudarDirecao("up");
+  if (e.key === "ArrowDown") mudarDirecao("down");
+  if (e.key === "ArrowLeft") mudarDirecao("left");
+  if (e.key === "ArrowRight") mudarDirecao("right");
+});
+
+function desenhar() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // desenhar cobra
+  snake.forEach((segment, index) => {
+    ctx.fillStyle = index === 0 ? "#00e676" : "#2196f3";
+    ctx.fillRect(segment.x, segment.y, box, box);
+  });
+
+  // desenhar comida
+  ctx.fillStyle = "#ff5252";
+  ctx.fillRect(food.x, food.y, box, box);
+
+  // cabeça da cobra
+  let head = { ...snake[0] };
+  if (direction === "up") head.y -= box;
+  if (direction === "down") head.y += box;
+  if (direction === "left") head.x -= box;
+  if (direction === "right") head.x += box;
+
+  // verificar colisão com comida
+  if (head.x === food.x && head.y === food.y) {
+    score++;
+    pontuacaoEl.textContent = `Pontuação: ${score}`;
+    gerarComida();
+  } else {
+    snake.pop();
+  }
+
+  // colisão com parede
+  if (
+    head.x < 0 || head.x >= canvas.width ||
+    head.y < 0 || head.y >= canvas.height
+  ) {
+    fimDeJogo();
+    return;
+  }
+
+  // colisão com o próprio corpo
+  for (let segment of snake) {
+    if (head.x === segment.x && head.y === segment.y) {
+      fimDeJogo();
+      return;
+    }
+  }
+
+  snake.unshift(head);
+}
+
+function fimDeJogo() {
+  clearInterval(gameLoop);
+  alert(`Game Over! Sua pontuação foi: ${score}`);
+}
+</script>
+</body>
+</html>

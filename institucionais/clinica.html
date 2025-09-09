@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Saúde Integral - Especialidades Médicas e Odontológicas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2b6cb0;
+            --secondary: #4299e1;
+            --accent: #3182ce;
+            --light: #ebf8ff;
+            --dark: #1a365d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .specialty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .doctor-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .appointment-form {
+            background: linear-gradient(135deg, #f7fafc 0%, #ebf8ff 100%);
+        }
+        
+        .patient-area {
+            background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+        }
+        
+        .floating-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-heartbeat text-3xl text-blue-600 mr-2"></i>
+                <h1 class="text-2xl font-bold text-blue-800">Clínica <span class="text-blue-600">Saúde Integral</span></h1>
+            </div>
+            
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="text-blue-800 hover:text-blue-600 font-medium">Início</a></li>
+                    <li><a href="#specialties" class="text-blue-800 hover:text-blue-600 font-medium">Especialidades</a></li>
+                    <li><a href="#team" class="text-blue-800 hover:text-blue-600 font-medium">Equipe</a></li>
+                    <li><a href="#appointment" class="text-blue-800 hover:text-blue-600 font-medium">Agendamento</a></li>
+                    <li><a href="#patient-area" class="text-blue-800 hover:text-blue-600 font-medium">Área do Paciente</a></li>
+                </ul>
+            </nav>
+            
+            <button class="md:hidden text-blue-800">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Cuidando da sua saúde com excelência</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Oferecemos atendimento médico e odontológico de qualidade com uma equipe multidisciplinar especializada.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#appointment" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Agendar Consulta</a>
+                <a href="#specialties" class="bg-white hover:bg-gray-100 text-blue-800 font-bold py-3 px-6 rounded-lg transition duration-300">Nossas Especialidades</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-blue-800">Médicos Especialistas</h3>
+                    <p class="text-gray-600">Profissionais altamente qualificados e experientes em suas áreas de atuação.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-teeth-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-blue-800">Odontologia Completa</h3>
+                    <p class="text-gray-600">Tratamentos odontológicos com tecnologia de ponta e materiais de qualidade.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-blue-800">Agendamento Online</h3>
+                    <p class="text-gray-600">Agende sua consulta de forma rápida e prática pelo nosso sistema online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties -->
+    <section id="specialties" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Nossas Especialidades</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Oferecemos uma ampla gama de especialidades médicas e odontológicas para cuidar de você e sua família.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Medical Specialties -->
+                <div class="specialty-card bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 transition duration-300">
+                    <div class="flex items-start mb-4">
+                        <div class="text-blue-600 text-2xl mr-4">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800">Cardiologia</h3>
+                            <p class="text-gray-600">Prevenção, diagnóstico e tratamento de doenças do coração e sistema circulatório.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specialty-card bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 transition duration-300">
+                    <div class="flex items-start mb-4">
+                        <div class="text-blue-600 text-2xl mr-4">
+                            <i class="fas fa-bone"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800">Ortopedia</h3>
+                            <p class="text-gray-600">Tratamento de doenças e lesões relacionadas ao sistema musculoesquelético.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specialty-card bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 transition duration-300">
+                    <div class="flex items-start mb-4">
+                        <div class="text-blue-600 text-2xl mr-4">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800">Neurologia</h3>
+                            <p class="text-gray-600">Diagnóstico e tratamento de distúrbios do sistema nervoso central e periférico.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dental Specialties -->
+                <div class="specialty-card bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 transition duration-300">
+                    <div class="flex items-start mb-4">
+                        <div class="text-blue-600 text-2xl mr-4">
+                            <i class="fas fa-tooth"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800">Odontologia Geral</h3>
+                            <p class="text-gray-600">Prevenção, diagnóstico e tratamento de problemas bucais de rotina.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specialty-card bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 transition duration-300">
+                    <div class="flex items-start mb-4">
+                        <div class="text-blue-600 text-2xl mr-4">
+                            <i class="fas fa-teeth"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800">Ortodontia</h3>
+                            <p class="text-gray-600">Correção de posicionamento dentário e problemas de oclusão.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specialty-card bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 transition duration-300">
+                    <div class="flex items-start mb-4">
+                        <div class="text-blue-600 text-2xl mr-4">
+                            <i class="fas fa-teeth-open"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800">Implantes Dentários</h3>
+                            <p class="text-gray-600">Reposição de dentes perdidos com próteses fixas sobre implantes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#appointment" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    Agendar Consulta
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical Team -->
+    <section id="team" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Nossa Equipe</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Conheça nossos profissionais altamente qualificados e dedicados ao seu bem-estar.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Dra. Ana Silva" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">Dra. Ana Silva</h3>
+                        <p class="text-blue-600 font-medium mb-3">Cardiologista</p>
+                        <p class="text-gray-600 mb-4">Formada pela USP com especialização em Harvard. Atua há 15 anos na área.</p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-calendar-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Dr. Carlos Mendes" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">Dr. Carlos Mendes</h3>
+                        <p class="text-blue-600 font-medium mb-3">Ortopedista</p>
+                        <p class="text-gray-600 mb-4">Especialista em cirurgia de coluna e membros. Membro da Sociedade Brasileira de Ortopedia.</p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-calendar-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Dra. Juliana Oliveira" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">Dra. Juliana Oliveira</h3>
+                        <p class="text-blue-600 font-medium mb-3">Neurologista</p>
+                        <p class="text-gray-600 mb-4">Especialista em doenças neurodegenerativas. Doutora pela UNIFESP.</p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-calendar-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Dr. Marcos Ribeiro" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">Dr. Marcos Ribeiro</h3>
+                        <p class="text-blue-600 font-medium mb-3">Dentista - Implantodontia</p>
+                        <p class="text-gray-600 mb-4">Especialista em implantes dentários e reabilitação oral. Mestrado em Odontologia pela UNICAMP.</p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-calendar-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="appointment-form py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 bg-blue-800 text-white p-8 md:p-12">
+                        <h2 class="text-3xl font-bold mb-4">Agende sua consulta</h2>
+                        <p class="mb-6">Preencha o formulário ao lado e nossa equipe entrará em contato para confirmar seu agendamento.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="text-blue-200 mr-4 mt-1">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Telefone</h4>
+                                    <p>(11) 1234-5678</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-blue-200 mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Email</h4>
+                                    <p>contato@clinicasaudeintegral.com.br</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-blue-200 mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Endereço</h4>
+                                    <p>Av. Paulista, 1000 - São Paulo/SP</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 p-8 md:p-12">
+                        <form id="appointmentForm" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-medium mb-1">Nome Completo</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-gray-700 font-medium mb-1">Telefone</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div>
+                                <label for="specialty" class="block text-gray-700 font-medium mb-1">Especialidade</label>
+                                <select id="specialty" name="specialty" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Selecione uma especialidade</option>
+                                    <option value="cardiology">Cardiologia</option>
+                                    <option value="orthopedics">Ortopedia</option>
+                                    <option value="neurology">Neurologia</option>
+                                    <option value="dentistry">Odontologia Geral</option>
+                                    <option value="orthodontics">Ortodontia</option>
+                                    <option value="implantology">Implantes Dentários</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="doctor" class="block text-gray-700 font-medium mb-1">Médico (opcional)</label>
+                                <select id="doctor" name="doctor" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Qualquer médico</option>
+                                    <option value="ana_silva">Dra. Ana Silva</option>
+                                    <option value="carlos_mendes">Dr. Carlos Mendes</option>
+                                    <option value="juliana_oliveira">Dra. Juliana Oliveira</option>
+                                    <option value="marcos_ribeiro">Dr. Marcos Ribeiro</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="date" class="block text-gray-700 font-medium mb-1">Data preferencial</label>
+                                <input type="date" id="date" name="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-gray-700 font-medium mb-1">Mensagem (opcional)</label>
+                                <textarea id="message" name="message" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                                Solicitar Agendamento
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patient Area -->
+    <section id="patient-area" class="patient-area py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 p-8 md:p-12">
+                        <h2 class="text-3xl font-bold text-blue-800 mb-6">Área do Paciente</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-calendar-check text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-blue-800 mb-2">Minhas Consultas</h3>
+                                    <p class="text-gray-600">Acompanhe seus agendamentos e histórico de consultas.</p>
+                                    <a href="#" class="inline-block mt-2 text-blue-600 hover:text-blue-800 font-medium">Acessar <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-file-medical text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-blue-800 mb-2">Meus Exames</h3>
+                                    <p class="text-gray-600">Visualize e baixe seus exames e resultados.</p>
+                                    <a href="#" class="inline-block mt-2 text-blue-600 hover:text-blue-800 font-medium">Acessar <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-prescription text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-blue-800 mb-
+</html>

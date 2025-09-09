@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot Avançado</title>
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+#chat {
+    width: 400px;
+    max-width: 95%;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+#messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.message {
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+.message.user {
+    background: #007bff;
+    color: #fff;
+    align-self: flex-end;
+}
+.message.bot {
+    background: #f1f0f0;
+    color: #333;
+    align-self: flex-start;
+}
+#inputArea {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+#input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+#sendBtn {
+    padding: 10px 15px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+#sendBtn:hover {
+    background: #0056b3;
+}
+</style>
+</head>
+<body>
+<div id="chat">
+    <div id="messages"></div>
+    <div id="inputArea">
+        <input type="text" id="input" placeholder="Digite sua mensagem...">
+        <button id="sendBtn">Enviar</button>
+    </div>
+</div>
+<script src="chat.js"></script>
+</body>
+</html>

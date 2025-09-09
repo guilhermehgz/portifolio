@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jogo da Velha - 2 Jogadores com Placar</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    color: #2196f3;
+    margin-bottom: 15px;
+    user-select: none;
+    text-align: center;
+  }
+  #game {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(80px, 110px));
+    grid-template-rows: repeat(3, minmax(80px, 110px));
+    gap: 10px;
+    background: #222;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #2196f3aa;
+  }
+  .cell {
+    background: #1e1e1e;
+    border-radius: 12px;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+    font-weight: 900;
+    box-shadow: inset 0 0 5px #000000aa;
+  }
+  .cell:hover {
+    background-color: #333;
+    transform: scale(1.05);
+  }
+  .cell.x {
+    color: #2196f3;
+    text-shadow: 0 0 8px #2196f3cc;
+  }
+  .cell.o {
+    color: #00e676;
+    text-shadow: 0 0 8px #00e676cc;
+  }
+  #status {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    min-height: 35px;
+    text-align: center;
+  }
+  #placar {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    display: flex;
+    gap: 20px;
+    background: #222;
+    padding: 12px 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px #00e676aa;
+    font-weight: 700;
+    justify-content: center;
+  }
+  #placar div {
+    background: #121212;
+    padding: 8px 15px;
+    border-radius: 12px;
+    box-shadow: inset 0 0 6px #000000cc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 90px;
+  }
+  #placar div span {
+    font-size: 1.5rem;
+    margin-top: 4px;
+  }
+  #scoreX {
+    color: #2196f3;
+    text-shadow: 0 0 8px #2196f3cc;
+  }
+  #scoreO {
+    color: #00e676;
+    text-shadow: 0 0 8px #00e676cc;
+  }
+  nav {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  nav button, nav a button {
+    padding: 12px 28px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #2196f3;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px #2196f3cc;
+  }
+  nav button:hover, nav a button:hover {
+    background-color: #1976d2;
+    box-shadow: 0 0 15px #1976d2cc;
+  }
+</style>
+</head>
+<body>
+
+<h1>Jogo da Velha - 2 Jogadores</h1>
+
+<div id="game"></div>
+<div id="status"></div>
+
+<div id="placar">
+  <div>
+    <div>Vitórias X</div>
+    <span id="scoreX">0</span>
+  </div>
+  <div>
+    <div>Vitórias O</div>
+    <span id="scoreO">0</span>
+  </div>
+</div>
+
+<nav>
+  <button id="resetBtn">Reiniciar Jogo</button>
+  <a href="../ggames.html"><button>Voltar à Página Inicial</button></a>
+</nav>
+
+<script>
+const gameContainer = document.getElementById('game');
+const statusDisplay = document.getElementById('status');
+const resetBtn = document.getElementById('resetBtn');
+const scoreXDisplay = document.getElementById('scoreX');
+const scoreODisplay = document.getElementById('scoreO');
+
+let board = Array(9).fill('');
+let currentPlayer = 'X';
+let gameActive = true;
+let scoreX = 0;
+let scoreO = 0;
+
+const messages = {
+  turn: () => `É a vez do jogador ${currentPlayer}`,
+  win: () => `Jogador ${currentPlayer} venceu! 🎉`,
+  draw: () => `Empate!`
+};
+
+function createBoard() {
+  gameContainer.innerHTML = '';
+  board.forEach((cellValue, i) => {
+    const cell = document.createElement('div');
+    cell.classList.add('cell');
+    cell.dataset.index = i;
+    cell.textContent = cellValue;
+    if (cellValue === 'X') cell.classList.add('x');
+    if (cellValue === 'O') cell.classList.add('o');
+    cell.addEventListener('click', handleCellClick);
+    gameContainer.appendChild(cell);
+  });
+  statusDisplay.textContent = messages.turn();
+}
+
+function handleCellClick(e) {
+  const idx = e.target.dataset.index;
+  if (board[idx] || !gameActive) return;
+  board[idx] = currentPlayer;
+  e.target.textContent = currentPlayer;
+  updateCellColor(e.target, currentPlayer);
+  if (checkWin()) {
+    statusDisplay.textContent = messages.win();
+    updateScore(currentPlayer);
+    gameActive = false;
+    return;
+  }
+  if (checkDraw()) {
+    statusDisplay.textContent = messages.draw();
+    gameActive = false;
+    return;
+  }
+  currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  statusDisplay.textContent = messages.turn();
+}
+
+function updateCellColor(cellElement, player) {
+  cellElement.classList.remove('x', 'o');
+  cellElement.classList.add(player.toLowerCase());
+}
+
+function checkWin() {
+  const winConditions = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+  return winConditions.some(condition =>
+    condition.every(index => board[index] === currentPlayer)
+  );
+}
+
+function checkDraw() {
+  return board.every(cell => cell);
+}
+
+function updateScore(player) {
+  if (player === 'X') {
+    scoreX++;
+    scoreXDisplay.textContent = scoreX;
+  } else {
+    scoreO++;
+    scoreODisplay.textContent = scoreO;
+  }
+}
+
+function resetGame() {
+  board.fill('');
+  currentPlayer = 'X';
+  gameActive = true;
+  createBoard();
+}
+
+resetBtn.addEventListener('click', resetGame);
+
+createBoard();
+</script>
+
+</body>
+</html>
